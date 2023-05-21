@@ -1,0 +1,28 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <title>VIN Decoder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-GjJUfWZZo31QGtmfrpp+FNsQiX9sPf+2/p01Jcy1zu/91mrV7q3cYJLnlnEYZu+0yPuz9nxW/s0hi1l7EJjKZQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="display-4 text-center mb-5">VIN Decoder</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="vin">Enter VIN:</label>
+                    <input type="text" class="form-control" id="vin">
+                    <button class="btn btn-primary" id="decode-btn">Decode</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+    <script src="vin.js"></script>
+</body>
+</html>

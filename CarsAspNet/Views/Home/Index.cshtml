@@ -1,0 +1,59 @@
+﻿@model List<DataBase.Entities.Car>
+
+<nav class="navbar navbar-light justify-content-between">
+    <form action="" method="post" class="form-inline d-flex flex-row gap-3">
+        <input name="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
+    </form>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filtering
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a asp-action="FilterFavorites" class="dropdown-item">Favorites</a>
+            <a asp-action="FilterExpensive" class="dropdown-item">Expensive</a>
+            <a asp-action="FilterCheap" class="dropdown-item">Cheap</a>
+        </div>
+    </div>
+</nav>
+
+<div class="row align-items-stretch">
+    @foreach (var c in Model)
+    {
+        bool isFavorite = ViewBag.FavoriteCars.Contains(c);
+        <div class="col-md-6 mb-4">
+            <div class="card p-0 h-100" style="margin-right: auto;">
+                <div class="row no-gutters h-100">
+                    <div class="col-md-7">
+                        <a class="h-100" style="color: inherit; text-decoration: none;" asp-controller="Cars" asp-action="Details" asp-route-id="@c.Id" asp-route-returnUrl="@Context.Request.Path.ToString()">
+                            <img src="@c.ImagePath" class="w-100" alt="..." style="object-fit: cover; height: 250px">
+                        </a>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-body">
+                            <a class="h-100" style="color: inherit; text-decoration: none;" asp-controller="Cars" asp-action="Details" asp-route-id="@c.Id" asp-route-returnUrl="@Context.Request.Path.ToString()">
+                                <h5 class="card-title text-primary">@c.Brand.Name @c.Model @c.ReleaseYear</h5>
+                            </a>
+                            <p class="card-text text-success">@c.Price$</p>
+                            <p class="card-text"><i class="bi bi-speedometer2"></i> @c.Run thousand km</p>
+                            @if (@c.User != null) {
+                                <p class="card-title">Seller @c.User.UserName</p>
+                            }
+                            else {
+                                <p class="card-title">Seller unknown</p>
+                            }
+                            @if (isFavorite)
+                            {
+                                <a asp-action="RemoveFavorite" asp-route-id="@c.Id" class="btn btn-primary"><i class="bi bi-star-fill"></i></a>
+                            }
+                            else
+                            {
+                                <a asp-action="AddFavorite" asp-route-id="@c.Id" class="btn btn-primary"><i class="bi bi-star"></i></a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,31 @@
+﻿@model List<DataBase.Entities.Car>
+
+<a asp-action="Create" class="btn btn-primary my-2">Create new advertisement</a>
+
+<div class="row align-items-stretch">
+    @foreach (var c in Model)
+    {
+        <div class="col-md-6 mb-4">
+            <div class="card p-0 h-100" style="margin-right: auto;">
+                <div class="row no-gutters h-100">
+                    <div class="col-md-7">
+                        <a class="h-100" style="color: inherit; text-decoration: none;" asp-controller="Cars" asp-action="Details" asp-route-id="@c.Id" asp-route-returnUrl="@Context.Request.Path.ToString()">
+                            <img src="@c.ImagePath" class="card-img w-100" alt="..." style="object-fit: cover; height: 250px">
+                        </a>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-body">
+                            <h5 class="card-title">@c.Brand.Name @c.Model @c.ReleaseYear</h5>
+                            <p class="card-text">@c.Price$</p>
+                            <p class="card-text"><i class="bi bi-speedometer2"></i> @c.Run thousand km</p>
+                            <p>People that liked: @ViewBag.carService.GetFavoritesCount(ViewBag.UserId, c.Id)</p>
+                            <a asp-controller="Cars" asp-action="Details" asp-route-id="@c.Id" asp-route-returnUrl="@Context.Request.Path.ToString()" class="btn btn-dark"><i class="bi bi-three-dots"></i></a>
+                            <a asp-action="Delete" asp-route-id="@c.Id" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
+                            <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
